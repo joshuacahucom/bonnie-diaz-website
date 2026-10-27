@@ -1,0 +1,5 @@
+.DS_Store
+.vercel
+# Raw camera files: convert to MP4 before adding (see README)
+*.MOV
+*.mov
