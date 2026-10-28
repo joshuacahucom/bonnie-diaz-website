@@ -2,6 +2,17 @@
 
 Static site (plain HTML, CSS and JavaScript, no build step). It follows the Bonnie Diaz Website Brief.
 
+**Branding:** black, white and hints of red, inspired by a tailored black suit with a red tie, plus shades of gray. Colors are defined once at the top of `assets/css/styles.css`:
+
+| Token | Hex | Used for |
+| --- | --- | --- |
+| `--red` | `#C7372C` | Accents: labels, dividers, active menu item, key buttons |
+| `--red-deep` | `#710D0B` | Links, banner and footer edge lines |
+| `--ink` | `#191211` | Text, header, page banners, dark bands |
+| `--gray-dark` | `#4A4743` | Secondary text |
+| `--gray` | `#94938F` | Captions and small text on black |
+| `--gray-light` | `#D6D7D2` | Borders, light text on black (`#EFEFEC` tint for light sections) |
+
 | Page | File |
 | --- | --- |
 | Home | `index.html` |
