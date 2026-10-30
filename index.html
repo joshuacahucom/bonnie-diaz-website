@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@400;600&display=swap">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <script src="assets/js/main.js" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261030">
+  <script src="assets/js/main.js?v=20261030" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -34,52 +34,76 @@
   </header>
 
   <main id="main">
+    <!-- Video reel first: the first element that loads -->
+    <section class="video-hero" data-hero-video aria-label="Bonnie Diaz video reel">
+      <video class="video-hero__media" autoplay muted loop playsinline preload="auto" poster="assets/img/video-posters/bio-reel.jpg">
+        <source src="assets/video/bio-reel.mp4" type="video/mp4">
+      </video>
+      <div class="video-hero__shade" aria-hidden="true"></div>
+      <button class="btn btn--light video-hero__close" type="button" data-hero-close>Close &times;</button>
+      <div class="wrap video-hero__content">
+        <span class="eyebrow">World Mambo Champion &middot; Creator of the 4DP Dance System</span>
+        <h1>Bonnie Diaz</h1>
+        <p class="video-hero__lead">More than a champion: a futurist and visionary.</p>
+        <div class="hero__actions">
+          <button class="btn btn--light" type="button" data-hero-sound>&#9654;&nbsp; Watch with sound</button>
+          <a class="btn btn--red" href="book-bonnie.html">Book Bonnie</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Brief bio + photo -->
     <section class="hero">
       <div class="wrap">
         <div class="hero__text">
           <span class="eyebrow">Champion &middot; Educator &middot; Visionary</span>
           <span class="script">Welcome</span>
-          <h1>I'm Bonnie</h1>
+          <h2 class="hero__title">I'm Bonnie</h2>
           <hr class="rule">
           <p>As the creator of The 4th-Dimension Partnership&trade;, aka The 4DP Dance System, Ms. Diaz introduces a new dimension in ballroom dancing rooted in the Physical, Social and Emotional dimensions, which lead to a Higher Consciousness. Her system elevates shared-axis technique to build dynamic, inclusive and respectful partnerships on and off the dance floor. She was recently featured as keynote speaker at LIFCON 2026, hosted by Dancing With The Stars celebrity Louis van Amstel. She was acknowledged by Dream Lawyers as an Inspired Woman Making an Impact in the World using her intellectual property. She brought her revolutionary 4DP System Technique to the Off-Broadway play &ldquo;Mr. Puppy The Musical,&rdquo; and she taught her 4DP Dance System at Wesleyan University. Keeping current with her dance career, she is touring, lecturing and adjudicating as an accomplished Fellow in all styles of dance.</p>
+          <a class="author-link" href="https://www.amazon.com/4th-Dimension-PartnershipTM-Solution-World-Balance/dp/B0GHQ47T2D" target="_blank" rel="noopener">Author of <em>The 4th-Dimension Partnership&trade;</em> <span aria-hidden="true">&#8599;</span></a>
           <div class="hero__actions">
             <a class="btn" href="about.html#full-bio">Read more <span class="arrow" aria-hidden="true">&rarr;</span></a>
             <a class="btn btn--ghost" href="book-bonnie.html">Book Bonnie</a>
           </div>
         </div>
         <div class="hero__media">
-          <div class="portrait">
+          <div class="portrait portrait--top">
             <div class="portrait__placeholder" aria-hidden="true">
               <strong>Photo of Bonnie</strong>
-              <small>assets/img/bonnie-portrait.jpg</small>
             </div>
-            <img src="assets/img/bonnie-portrait.jpg" alt="Bonnie Diaz">
+            <img src="assets/img/photos/bonnie-black-hat.jpg" alt="Bonnie Diaz in a black hat and white blouse">
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Introduction video (old + new footage, being edited) -->
-    <section class="section section--light">
-      <div class="wrap">
-        <div class="section__head section__head--center">
-          <span class="script">Meet</span>
-          <h2>Bonnie Diaz</h2>
+    <!-- The 4DP section (keep, per Jaylene) -->
+    <section class="section section--light" id="4dp">
+      <div class="wrap split split--reverse">
+        <div>
+          <span class="eyebrow">The 4th-Dimension Partnership&trade;</span>
+          <h2>The 4DP Dance System</h2>
           <hr class="rule">
-          <p class="lead">Decades of championship dancing, teaching and choreography, in her own words.</p>
+          <!-- Placeholder description from Bonnie's "Why I created 4DP" video. Replace with Bonnie's own paragraph. -->
+          <p>The 4th-Dimension Partnership&trade; (4DP) is a dance system built on the physical, social, emotional and spiritual dimensions of partnership. It helps dancers restore balance, deepen awareness and strengthen connection with themselves and others, on and off the dance floor.</p>
+          <p>4DP works for solo dancers, children, adults and professional couples alike.</p>
+          <a class="btn" href="4dp-training.html">Explore 4DP Training <span class="arrow" aria-hidden="true">&rarr;</span></a>
         </div>
-        <figure class="video video-feature">
+        <figure class="video">
           <div class="video__frame">
-            <video controls preload="metadata" playsinline>
-              <source src="assets/video/intro.mp4" type="video/mp4">
+            <video controls preload="metadata" playsinline poster="assets/img/video-posters/4dp-principles.jpg">
+              <source src="assets/video/4dp-principles.mp4" type="video/mp4">
             </video>
             <div class="video__placeholder" aria-hidden="true">
               <span class="video__play">&#9654;</span>
-              <p>Bonnie's introduction video</p>
-              <small>Coming soon &middot; assets/video/intro.mp4</small>
+              <p>The principles of 4DP</p>
             </div>
           </div>
+          <figcaption>
+            <h3>The principles of 4DP</h3>
+            <p>Bonnie explains the ideas the system is built on.</p>
+          </figcaption>
         </figure>
       </div>
     </section>
@@ -111,6 +135,7 @@
             <li>Phone: <span class="todo">number needed</span></li>
             <li>Email: <span class="todo">address needed</span></li>
             <li>Socials: <span class="todo">links needed</span></li>
+            <li><a href="https://www.amazon.com/4th-Dimension-PartnershipTM-Solution-World-Balance/dp/B0GHQ47T2D" target="_blank" rel="noopener">Author: <em>The 4th-Dimension Partnership&trade;</em> &#8599;</a></li>
             <li><a href="book-bonnie.html#contact">Send an inquiry &rarr;</a></li>
           </ul>
         </div>

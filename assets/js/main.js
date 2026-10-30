@@ -30,6 +30,23 @@ document.querySelectorAll(".video__frame").forEach((frame) => {
   video.addEventListener("loadedmetadata", markReady);
 });
 
+// Home: opening video reel plays muted on loop; "Watch with sound" restarts it with audio
+const heroVideo = document.querySelector("[data-hero-video]");
+if (heroVideo) {
+  const media = heroVideo.querySelector("video");
+  const setSound = (on) => {
+    heroVideo.classList.toggle("is-playing-sound", on);
+    media.muted = !on;
+    media.loop = !on;
+    media.controls = on;
+    if (on) media.currentTime = 0;
+    media.play().catch(() => {});
+  };
+  heroVideo.querySelector("[data-hero-sound]")?.addEventListener("click", () => setSound(true));
+  heroVideo.querySelector("[data-hero-close]")?.addEventListener("click", () => setSound(false));
+  media.addEventListener("ended", () => setSound(false));
+}
+
 // About: arrow that reveals the extended bio
 const bioToggle = document.querySelector("[data-bio-toggle]");
 const bioMore = document.getElementById("full-bio");
