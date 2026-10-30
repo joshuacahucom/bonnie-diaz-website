@@ -137,34 +137,25 @@ p { margin: 0 0 1.1em; }
 
 /* ---------- Opening video (Home): the first thing that loads ---------- */
 
-.video-hero {
-  position: relative; overflow: hidden; background: var(--ink);
-  height: min(calc(100svh - var(--header-h)), 860px); min-height: 460px;
-  border-bottom: 3px solid var(--red-line);
-}
-.video-hero__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.video-hero__shade {
-  position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(25, 18, 17, 0.05) 35%, rgba(25, 18, 17, 0.88) 100%);
+.video-hero { position: relative; background: var(--ink); border-bottom: 3px solid var(--red-line); }
+/* The reel has burned-in captions down both sides, so nothing is laid over it and the whole frame always shows */
+.video-hero__media {
+  display: block; width: 100%; aspect-ratio: 16 / 9;
+  max-height: calc(100svh - var(--header-h)); /* never taller than the screen */
+  object-fit: contain; background: #000;
 }
 .video-hero__content {
-  position: absolute; left: 0; right: 0; bottom: clamp(28px, 6vw, 64px);
-  color: var(--white);
+  display: grid; grid-template-columns: 1fr auto; column-gap: 32px; align-items: end;
+  padding-block: clamp(24px, 3.5vw, 40px); color: var(--white);
 }
-.video-hero h1 { color: var(--white); margin-bottom: 0.15em; }
-.video-hero__lead { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.3rem, 2.4vw, 1.8rem); color: var(--gray-light); margin: 0 0 1.2em; }
-.video-hero.is-playing-sound .video-hero__shade,
-.video-hero.is-playing-sound .video-hero__content { opacity: 0; pointer-events: none; transition: opacity 0.4s; }
-.video-hero__close {
-  position: absolute; top: 16px; right: 16px; z-index: 2; display: none;
-}
+.video-hero__content .hero__actions { grid-column: 2; grid-row: 1 / span 3; margin: 0; }
+.video-hero h1 { color: var(--white); margin-bottom: 0.1em; font-size: clamp(2.2rem, 5vw, 3.8rem); }
+.video-hero__lead { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.2rem, 2vw, 1.6rem); color: var(--gray-light); margin: 0; }
+.video-hero__close { position: absolute; top: 16px; right: 16px; z-index: 2; display: none; }
 .video-hero.is-playing-sound .video-hero__close { display: inline-flex; }
-@media (max-width: 600px) {
-  .video-hero { height: auto; min-height: 0; aspect-ratio: auto; }
-  .video-hero__media { position: relative; height: auto; aspect-ratio: 16 / 9; }
-  .video-hero__shade { display: none; }
-  .video-hero__content { position: static; padding: 28px 0 36px; }
-  .video-hero.is-playing-sound .video-hero__content { opacity: 1; pointer-events: auto; }
+@media (max-width: 900px) {
+  .video-hero__content { grid-template-columns: 1fr; }
+  .video-hero__content .hero__actions { grid-column: 1; grid-row: auto; margin-top: 22px; }
 }
 
 /* Author link (Jeremy: "Add an author link") */
