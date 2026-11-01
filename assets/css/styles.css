@@ -10,6 +10,7 @@
   --red-line: #9a1d13;     /* same red, lifted just enough to show as thin lines on black */
   --ink: #191211;
   --ink-deep: #0f0a09;
+  --black: #000000;       /* matches the video: header, menu, video area, page banners */
   --gray-dark: #4a4743;
   --gray: #94938f;
   --gray-light: #d6d7d2;
@@ -137,7 +138,7 @@ p { margin: 0 0 1.1em; }
 
 /* ---------- Opening video (Home): the first thing that loads ---------- */
 
-.video-hero { position: relative; background: var(--ink); border-bottom: 3px solid var(--red-line); }
+.video-hero { position: relative; background: var(--black); border-bottom: 3px solid var(--red-line); }
 /* The reel has burned-in captions down both sides, so nothing is laid over it and the whole frame always shows */
 .video-hero__media {
   display: block; width: 100%; aspect-ratio: 16 / 9;
@@ -174,7 +175,7 @@ p { margin: 0 0 1.1em; }
 
 .site-header {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(25, 18, 17, 0.97);
+  background: var(--black);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line-dark);
 }
@@ -212,7 +213,7 @@ p { margin: 0 0 1.1em; }
   .nav-toggle { display: block; }
   .site-nav {
     position: absolute; top: 100%; left: 0; right: 0;
-    background: var(--ink); border-bottom: 2px solid var(--red-line);
+    background: var(--black); border-bottom: 2px solid var(--red-line);
     display: none;
   }
   .site-nav ul { flex-direction: column; gap: 0; padding: 8px var(--gutter) 20px; }
@@ -238,7 +239,7 @@ p { margin: 0 0 1.1em; }
 
 /* Page banner: black band under the header */
 .page-head {
-  background: var(--ink);
+  background: var(--black);
   padding-block: clamp(56px, 8vw, 96px) clamp(48px, 7vw, 80px);
   text-align: center;
   border-bottom: 3px solid var(--red-line);
@@ -473,3 +474,24 @@ p { margin: 0 0 1.1em; }
 .video--portrait { max-width: 380px; }
 .video--portrait .video__frame { aspect-ratio: 720 / 888; }
 @media (max-width: 860px) { .video--portrait { margin-inline: auto; } }
+
+/* ---------- Books ---------- */
+
+.book-cover { display: block; max-width: 420px; box-shadow: 16px 16px 0 var(--ink); border-bottom: 4px solid var(--red); }
+.book-cover img { width: 100%; }
+@media (max-width: 860px) { .book-cover { box-shadow: 10px 10px 0 var(--ink); margin-right: 10px; } }
+
+.pillars { list-style: none; margin: 0 0 1.6em; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.pillars li { background: var(--white); padding: 14px 16px; font-family: var(--font-serif); font-size: 1.25rem; }
+@media (max-width: 560px) { .pillars { grid-template-columns: 1fr; } }
+
+/* 3 books: 3 / 1 columns */
+.book-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 44px); }
+@media (max-width: 860px) { .book-grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; } }
+.book-card { display: block; text-decoration: none; color: inherit; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--ink); padding: 24px; transition: border-top-color 0.2s; }
+.book-card:hover { border-top-color: var(--red); color: inherit; }
+.book-card img { width: 100%; aspect-ratio: 696 / 900; object-fit: contain; background: var(--paper-gray); margin-bottom: 18px; }
+.book-card h3 { font-size: 1.4rem; margin-bottom: 0.3em; }
+.book-card p { margin: 0; color: var(--muted); font-size: 1rem; }
+.book-card .watch { display: inline-block; margin-top: 12px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); }
+.books-all { text-align: center; margin: clamp(32px, 5vw, 48px) 0 0; }
