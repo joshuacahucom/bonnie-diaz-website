@@ -61,6 +61,70 @@ if (bioToggle && bioMore) {
   if (location.hash === "#full-bio") setOpen(true);
 }
 
+// Motion banners: copy the items once so the strip loops seamlessly (the copy is hidden from screen readers)
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.querySelectorAll("[data-marquee] .marquee__track").forEach((track) => {
+  if (reduceMotion) return;
+  [...track.children].forEach((item) => {
+    const copy = item.cloneNode(true);
+    copy.setAttribute("aria-hidden", "true");
+    copy.querySelectorAll("a, button").forEach((el) => el.setAttribute("tabindex", "-1"));
+    if (copy.matches("a")) copy.setAttribute("tabindex", "-1");
+    track.append(copy);
+  });
+});
+
+// Vimeo videos play in a lightbox on the site. Bonnie's Vimeo privacy settings decide which
+// domains may embed them; until this domain is allowed, links keep opening on Vimeo.
+const vimeoId = (href) => href.match(/vimeo\.com\/(\d+)/)?.[1];
+const embedChecks = new Map();
+const canEmbed = (id) => {
+  if (!embedChecks.has(id)) {
+    embedChecks.set(id, fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => Boolean(data) && data.domain_status_code !== 403)
+      .catch(() => false));
+  }
+  return embedChecks.get(id);
+};
+let lightbox;
+const openVideo = (id, title) => {
+  if (!lightbox) {
+    lightbox = document.createElement("dialog");
+    lightbox.className = "lightbox";
+    lightbox.innerHTML = '<button class="lightbox__close" type="button" aria-label="Close video">&times;</button><div class="lightbox__frame"></div>';
+    lightbox.querySelector(".lightbox__close").addEventListener("click", () => lightbox.close());
+    lightbox.addEventListener("click", (event) => { if (event.target === lightbox) lightbox.close(); });
+    lightbox.addEventListener("close", () => { lightbox.querySelector(".lightbox__frame").innerHTML = ""; });
+    document.body.append(lightbox);
+  }
+  const frame = document.createElement("iframe");
+  frame.src = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`;
+  frame.allow = "autoplay; fullscreen; picture-in-picture";
+  frame.allowFullscreen = true;
+  frame.title = title || "Bonnie Diaz video";
+  lightbox.querySelector(".lightbox__frame").append(frame);
+  lightbox.showModal();
+};
+document.querySelectorAll('a[href*="vimeo.com/"]').forEach((link) => {
+  const id = vimeoId(link.href);
+  if (!id) return;
+  canEmbed(id).then((ok) => {
+    if (!ok) return;
+    link.dataset.embed = id;
+    link.removeAttribute("target");
+    const watch = link.querySelector(".watch");
+    if (watch) watch.textContent = "Play video ▶";
+  });
+});
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("a[data-embed]");
+  if (!link) return;
+  event.preventDefault();
+  const title = link.querySelector("h3, .reel__title")?.textContent;
+  openVideo(link.dataset.embed, title);
+});
+
 // Contact form
 const form = document.querySelector("[data-contact-form]");
 if (form) {

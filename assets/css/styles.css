@@ -72,7 +72,11 @@ h1, h2, h3 {
 h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); text-transform: uppercase; letter-spacing: 0.06em; }
 h2 { font-size: clamp(2rem, 4vw, 3rem); text-transform: uppercase; letter-spacing: 0.06em; }
 h3 { font-size: 1.6rem; }
-p { margin: 0 0 1.1em; }
+p { margin: 0 0 1.1em; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+/* Body copy is justified (client request); centered intros, banners and short captions stay as they are */
+.section__head--center p, .page-head p, .quote-band p, .video-hero p, .video__placeholder p,
+.form__status, .books-all, .logo-banner__label { text-align: center; hyphens: manual; }
+.video-hero p, .form__status { text-align: left; }
 
 /* Accent line above headings: a red italic serif, like the tie on a black suit */
 .script {
@@ -468,6 +472,8 @@ p { margin: 0 0 1.1em; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; }
+  .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .marquee__track { animation: none; }
 }
 
 /* Vertical (phone) video, e.g. the LaBlast testimonial */
@@ -495,3 +501,81 @@ p { margin: 0 0 1.1em; }
 .book-card p { margin: 0; color: var(--muted); font-size: 1rem; }
 .book-card .watch { display: inline-block; margin-top: 12px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); }
 .books-all { text-align: center; margin: clamp(32px, 5vw, 48px) 0 0; }
+
+/* ---------- Tighter section (About: video right under the page title) ---------- */
+.section--tight { padding-block: clamp(32px, 5vw, 64px); }
+
+/* ---------- Motion banners (logos, reels, photos) ---------- */
+.marquee {
+  --marquee-gap: clamp(28px, 4vw, 56px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+.marquee__track {
+  display: flex; align-items: center; gap: var(--marquee-gap);
+  width: max-content; margin: 0; padding: 0; list-style: none;
+  animation: marquee var(--marquee-speed, 45s) linear infinite;
+}
+.marquee--slow .marquee__track { --marquee-speed: 70s; }
+.marquee--reverse .marquee__track { animation-direction: reverse; --marquee-speed: 80s; }
+.marquee:hover .marquee__track, .marquee:focus-within .marquee__track { animation-play-state: paused; }
+/* The track holds two copies of the items, so sliding by half (plus half a gap) loops seamlessly */
+@keyframes marquee { to { transform: translateX(calc(-50% - var(--marquee-gap) / 2)); } }
+
+.logo-banner { border-block: 1px solid var(--line); padding-block: 28px 34px; margin-bottom: clamp(48px, 6vw, 80px); }
+.logo-banner__label { margin: 0 0 22px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+.logo-banner li { flex: none; }
+.logo-banner img { height: 42px; width: auto; max-width: 190px; object-fit: contain; filter: grayscale(1) brightness(0); opacity: 0.8; transition: opacity 0.2s; }
+.logo-banner img.is-square { height: 58px; }
+.logo-banner img:hover { opacity: 1; }
+
+.section--dark .marquee + .marquee { margin-top: clamp(28px, 4vw, 48px); }
+.reel { flex: none; width: clamp(260px, 30vw, 380px); text-decoration: none; color: var(--gray-light); }
+.reel__thumb { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius); background: var(--black); }
+.reel__thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.4s, opacity 0.3s; }
+.reel__thumb .video__play { position: absolute; inset: 0; margin: auto; background: rgba(25, 18, 17, 0.6); border-color: var(--white); transition: background 0.2s, border-color 0.2s; }
+.reel:hover .reel__thumb img { transform: scale(1.04); opacity: 1; }
+.reel:hover .video__play { background: var(--red); border-color: var(--red); }
+.reel__title { display: block; margin-top: 12px; font-family: var(--font-serif); font-size: 1.35rem; color: var(--white); }
+.reel__meta { display: block; font-size: 0.9rem; color: var(--gray); }
+.reel:hover { color: var(--gray-light); }
+.photo { flex: none; margin: 0; width: min-content; }
+.photo img { height: clamp(240px, 30vw, 340px); width: auto; max-width: none; border-radius: var(--radius); }
+.photo figcaption { margin-top: 10px; font-size: 0.85rem; line-height: 1.4; color: var(--gray); }
+
+/* ---------- Timeline (accolade highlights) ---------- */
+.timeline__title { text-align: center; margin-bottom: 1.2em; }
+.timeline {
+  --tl-year: 108px; --tl-gap: 64px;
+  position: relative; max-width: 860px; margin: 0 auto clamp(56px, 7vw, 96px); padding: 0; list-style: none;
+}
+.timeline::before {
+  content: ""; position: absolute; top: 8px; bottom: 8px;
+  left: calc(var(--tl-year) + var(--tl-gap) / 2 - 1px); width: 2px; background: var(--line);
+}
+.timeline li { position: relative; display: grid; grid-template-columns: var(--tl-year) 1fr; column-gap: var(--tl-gap); padding-bottom: 32px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before {
+  content: ""; position: absolute; top: 0.55rem; left: calc(var(--tl-year) + var(--tl-gap) / 2 - 8px);
+  width: 16px; height: 16px; border-radius: 50%; background: var(--white); border: 3px solid var(--red); box-sizing: border-box;
+}
+.timeline li.is-now::before { background: var(--red); }
+.timeline__year { font-family: var(--font-serif); font-size: 2rem; line-height: 1; color: var(--red); text-align: right; }
+.timeline h4 { margin: 0.15em 0 0.3em; font-family: var(--font-serif); font-size: 1.45rem; font-weight: 500; line-height: 1.2; color: var(--ink); }
+.timeline p { margin: 0; color: var(--muted); font-size: 1rem; }
+@media (max-width: 600px) {
+  .timeline { --tl-year: 58px; --tl-gap: 36px; }
+  .timeline__year { font-size: 1.35rem; padding-top: 0.25rem; }
+}
+
+/* ---------- Video lightbox (Vimeo videos play on the site once Vimeo allows this domain) ---------- */
+.lightbox { width: min(100% - 32px, 1100px); padding: 0; border: 0; background: transparent; overflow: visible; }
+.lightbox::backdrop { background: rgba(0, 0, 0, 0.88); }
+.lightbox__frame { position: relative; aspect-ratio: 16 / 9; background: var(--black); }
+.lightbox__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.lightbox__close {
+  position: absolute; top: -48px; right: 0; width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent; color: var(--white); font-size: 1.6rem; line-height: 1; cursor: pointer;
+}
+.lightbox__close:hover { background: var(--white); color: var(--ink); }

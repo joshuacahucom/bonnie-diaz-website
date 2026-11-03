@@ -41,7 +41,7 @@ Photos and videos come from the team's Drive folder, "BonnieDiaz-Website content
 | `assets/video/4dp-principles.mp4` | Home 4DP section, 4DP Training | Principles of the 4DP |
 | `assets/video/why-i-created-4dp.mp4` | 4DP Training | Why Bonnie Created 4DP |
 | `assets/video/lifcon-2026-keynote.mp4` | Events | LIFCON Video Reel |
-| `assets/video/testimonial-lablast-2.mp4` | Events | LaBlast Event Testimonial #2 |
+| `assets/video/testimonial-lablast-2.mp4` | (not shown) | LaBlast Event Testimonial #2. Section removed per Jaylene: these clips go into the highlight reel |
 | `assets/video/book-bonnie.mp4` | Book Bonnie | Book Bonnie Diaz |
 | `assets/img/photos/bonnie-black-hat.jpg` | Home | Bonnie Diaz with black hat and white background |
 | `assets/img/photos/bonnie-suit.jpg` | About | IMG_0879 |
@@ -50,13 +50,15 @@ Photos and videos come from the team's Drive folder, "BonnieDiaz-Website content
 | `assets/img/photos/bonnie-white-shirt.jpg`, `bonnie-street-1.jpg` | About gallery | White Button Down with Hat, IMG_0985 |
 | `assets/img/video-posters/*.jpg` | Every video | Frame from each video |
 
-Not provided yet: "What is 4DP?" (IMG_1011), a 4DP demonstration, "Why 4DP matters to women", and more testimonials. Their spots were removed rather than left as empty placeholders; HTML comments mark where they go.
+Not provided yet: "What is 4DP?" (IMG_1011), a "4DP in Motion" demonstration, "Why 4DP Matters to Women", and more testimonials. Their spots were removed rather than left as empty placeholders; HTML comments mark where they go.
 
 Hosting video files on Vercel uses bandwidth on every view (the Home reel is 23 MB). For a busy production site, consider moving the videos to Vimeo, YouTube or Mux and embedding them.
 
 ### Content from bonniediaz.com
 
-Photos, flyers, the book cover and video thumbnails came from Bonnie's current site (`assets/img/events`, `gallery`, `video-thumbs`). The 6 dance reels (About) and 2 Times Square billboard videos (Events) are on Vimeo. Their privacy settings only allow embedding on approved domains, so the site shows thumbnail cards that open each video on Vimeo. To play them in-page instead, add the new site's domain under each video's Vimeo embed settings, then swap the card for `<iframe src="https://player.vimeo.com/video/<id>">`.
+Photos, flyers, the book cover and video thumbnails came from Bonnie's current site (`assets/img/events`, `gallery`, `video-thumbs`). The LIFCON flyer was recolored from purple to black, white and red. The 6 dance reels (About) and 2 Times Square billboard videos (Events) are on Vimeo, and their privacy settings only allow embedding on approved domains. The site checks each video when the page loads: if Vimeo allows the domain, the video plays in a lightbox on the page; if not, the link opens it on Vimeo. **To make them play on the site, Bonnie adds the site's domain (bonnie-diaz-website.vercel.app, plus the final domain) in Vimeo under each video's Privacy > Embed > Specific domains.** No code change is needed.
+
+The "Featured at & with" logo banner on About uses public-domain logos from Wikimedia Commons (`assets/img/logos`), all named in Bonnie's accolades.
 
 To add a new video, convert .MOV files to MP4 (H.264) first, e.g. with HandBrake or:
 
